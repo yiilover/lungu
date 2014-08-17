@@ -1,0 +1,15 @@
+<style>
+body,html{background:none; padding:0; margin:0}
+.log{line-height:24px;*line-height:27px; height:24px;float:right; font-size:12px}
+.log span{color:#c3c3c3}
+.log a{color:#c3c3c3;text-decoration: none;}
+.log a:hover{text-decoration: underline;}
+.log .snda{ position:relative; bottom:-3px}
+.log .upv_btn{height: 24px; padding-left: 14px; position: relative; background:url({IMG_PATH}up_btn.gif) no-repeat 0px 0px; margin-left:0px; margin-right:10px; *background-position:0px 5px;}
+.log .r{float:right; width:100px}
+.log .w27{* width:650px; color:#FFF; }
+</style>
+<body style="background-color:transparent">
+<div class="log w27">{if $_username} <a style="width:500px; float:left" href="{APP_PATH}index.php?m=member&siteid={$siteid}" target="_blank">{L('hellow')} {get_nickname()}, 欢迎进入轮毂网！</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{APP_PATH}index.php?m=member&c=index&a=logout&forward={urlencode($_GET['forward'])}&siteid={$siteid}" target="_top" >{L('logout')}</a></span>&nbsp;&nbsp;{else} <a style="width:500px;float:left" href="">欢迎进入轮毂网，有您参与才会更精彩！</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{APP_PATH}index.php?m=member&c=index&a=register&siteid={$siteid}" target="_blank">{L('register')}</a> <span>|</span> <a href="{APP_PATH}index.php?m=member&c=index&a=login&forward={urlencode($_GET['forward'])}&siteid={$siteid}" target="_top">{L('login')}</a>&nbsp;&nbsp;</span>
+{/if}</div>
+</body>

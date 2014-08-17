@@ -1,0 +1,218 @@
+
+{template 'member', 'header'}
+<link href="{CSS_PATH}dialog.css" rel="stylesheet" type="text/css" />
+<script language="javascript" type="text/javascript" src="{JS_PATH}dialog.js"></script>
+<script language="javascript" type="text/javascript" src="{JS_PATH}content_addtop.js"></script>
+<div id="memberArea">
+	{template 'member', 'left'}
+	<div class="col-auto" style="width:840px">
+		<div class="col-1 " style="width:835px">
+			<h5 class="title" style="float:left;width:150px">
+           
+            <form  name="form1" action="{APP_PATH}index.php?m=member&c=content&a=published" method="get" > 
+            <select  name="jumpMenu"  id="jumpMenu" onchange="MM_jumpMenu('parent',this,0)">
+              <option value="index.php?m=member&c=content&a=published">选择栏目</option>
+            <option value="index.php?m=member&c=content&a=published&catid=9">改装款</option>
+             <option value="index.php?m=member&c=content&a=published&catid=10" >原车件</option>
+              <option value="index.php?m=member&c=content&a=published&catid=11" >拆车件</option>
+               <option value="index.php?m=member&c=content&a=published&catid=12" >库存表</option>
+            
+            </select>
+              
+          </form>
+         </h5><div style="float:left;width:600px; padding-top:6px"><form method="get" action="{APP_PATH}index.php?m=member&c=content&a=published" id="myform" name="myform">
+				<input type="hidden" name="m" value="member" /><input type="hidden" name="c" value="content" /><input type="hidden" name="a" value="published" /><input type="hidden" name="t" value="2" />
+       编号<input type="text" name="q" size="30" /> 发布时间 <link rel="stylesheet" type="text/css" href="http://121.199.16.16:8006/statics/js/calendar/jscal2.css"/>
+			<link rel="stylesheet" type="text/css" href="http://121.199.16.16:8006/statics/js/calendar/border-radius.css"/>
+			<link rel="stylesheet" type="text/css" href="http://121.199.16.16:8006/statics/js/calendar/win2k.css"/>
+			<script type="text/javascript" src="http://121.199.16.16:8006/statics/js/calendar/calendar.js"></script>
+			<script type="text/javascript" src="http://121.199.16.16:8006/statics/js/calendar/lang/en.js"></script><input type="text" name="q" id="inputtime" value="{date()}" size="21" class="date" readonly>&nbsp;<script type="text/javascript">
+			Calendar.setup({
+			weekNumbers: true,
+		    inputField : "inputtime",
+		    trigger    : "inputtime",
+		    dateFormat: "%Y-%m-%d %H:%M:%S",
+		    showTime: true,
+		    minuteStep: 1,
+		    onSelect   : function() {this.hide();}
+			});
+        </script> 
+
+                
+                 <input type="submit"  value="search"/></form></div>
+
+{php $catid=$_GET[catid]; }
+<div style="clear:both"></div>
+		  <div class="content" style="font-size:12px" >
+		{if $catid==9 ||$catid==0 }
+			<table width="820" cellspacing="0"  class="table-list" style="font-size:12px">
+        <thead>
+            <tr>
+            <th width="30">ID</th>
+            <th >图片</th>
+            <th width="90">尺寸/J数</th>
+            <th width="70">孔数孔距</th>
+             <th width="50">偏距</th>
+              <th width="70">条幅</th>
+              <th width="80">边缘</th>
+              <th width="60">颜色</th>
+               <th width="60">工艺</th>
+              <th width="60">产地</th>
+            <th width="100">{L('operation')}</th>
+            </tr>
+        </thead>
+    <tbody>
+   	{loop $datas $info} 
+    {if $info['catid']==9 }
+    {php $id=$info['id']}
+    {pc:get sql="SELECT * FROM v9_gaizhuang where id=$id"  return="keywords"} 
+    {loop $keywords $k=>$v}
+	<tr>
+	<td align="center">{$v['id']}</td>
+	<td align="left"><a href="{$v[url]}" target="_blank" title="{$v['title']}"><img src="{$v['thumb']}" width="60px" /></a> {if $v[status]==0}<font color="red">{L('reject_content')}</font>{elseif $v[status]!='99'}<font color="#1D94C7">待审中</font>{/if}</td>
+	<td align="center">{get_linkage($v['size'],3360,' >> ',1)} </td>
+	<td align="center">{get_linkage($v['kongshu'],3433,' >> ',0)}</td>
+    <td align="center">{$v['pianju']}</td>
+    <td align="center">{get_linkage($v['tiaofu'],3425,' >> ',1)}</td>
+    <td align="center">{get_linkage($v['bianyuan'],3440,' >> ',1)}</td>
+    <td align="center">{get_linkage($v['color'],3451,' >> ',1)}</td>
+    <td align="center">{get_linkage($v['gongyi'],3475,' >> ',1)}</td>
+    <td align="center">{if $v['chandi']==0}进口{else}国产{/if}</td>
+	<td align="center">
+	<a href="index.php?m=member&c=content&a=edit&catid={$info[catid]}&id={$info[id]}"><font color="red">{L('edit')}</font></a> {if $info[status]==99}<font color="#1D94C7">{L('pass')}</font>{elseif !$info[flag]}{L('verify_content')}{/if}
+  	 
+	</td>
+	</tr>
+    {/loop}{/pc}
+     {/loop}
+    {/if}
+     </tbody>
+    </table>
+     
+    {elseif $catid==10 }
+			<table width="820" cellspacing="0"  class="table-list" style="font-size:12px">
+        <thead>
+            <tr>
+             <th width="30">ID</th>
+            <th>图片</th>
+            <th width="150">汽车品牌/车型</th>
+            <th width="120">配件编号</th>
+             <th width="120">尺寸</th>
+             <th width="120">产地</th>
+            <th width="90">{L('operation')}</th>
+            </tr>
+        </thead>
+    <tbody>
+   	{loop $datas $info} 
+     {if $info['catid']==10 }
+	 {php $id=$info['id']}
+    {pc:get sql="SELECT * FROM v9_yuanche where id=$id"  return="keywords"} 
+    {loop $keywords $k=>$v}
+	<tr>
+	<td align="center">{$v['id']}</td>
+	<td align="left"><a href="{$v[url]}" target="_blank" title="{$v['title']}"><img src="{$v['thumb']}" width="60px" /></a> {if $v[status]==0}<font color="red">{L('reject_content')}</font>{elseif $v[status]!='99'}<font color="#1D94C7">待审中</font>{/if}</td>
+	<td align="center">{get_linkage($v['brand'],3480,' >> ',1)} </td>
+	<td align="center">{$v['cid']}</td>
+    <td align="center">{get_linkage($v['size'],3360,' >> ',1)}</td>
+    <td align="center">{if $v['chandi']==0}进口{else}国产{/if}</td>
+	<td align="center">
+	<a href="index.php?m=member&c=content&a=edit&catid={$info[catid]}&id={$info[id]}"><font color="red">{L('edit')}</font></a> {if $info[status]==99}<font color="#1D94C7">{L('pass')}</font>{elseif !$info[flag]}{L('verify_content')}{/if}
+  	 
+	</td>
+	</tr>
+    {/loop}{/pc}
+     {/loop}
+      {/if}
+     </tbody>
+    </table>
+   
+    
+	 {elseif $catid==11 }
+			<table width="820" cellspacing="0"  class="table-list" style="font-size:12px">
+        <thead>
+            <tr>
+            <th width="30">ID</th>
+            <th>图片</th>
+            <th width="180">汽车品牌/车型</th>
+            <th width="100">配件编号</th>
+             <th width="100">成色</th>
+            <th width="90">尺寸</th>
+             <th width="80">产地</th>
+            <th width="90">{L('operation')}</th>
+            </tr>
+        </thead>
+    <tbody>
+   	{loop $datas $info} 
+     {if $info['catid']==11 }
+	 {php $id=$info['id']}
+    {pc:get sql="SELECT * FROM v9_chaiche where id=$id"  return="keywords"} 
+    {loop $keywords $k=>$v}
+	<tr>
+	<td align="center">{$v['id']}</td>
+	<td align="left"><a href="{$v[url]}" target="_blank" title="{$v['title']}"><img src="{$v['thumb']}" width="60px" /></a> {if $v[status]==0}<font color="red">{L('reject_content')}</font>{elseif $v[status]!='99'}<font color="#1D94C7">待审中</font>{/if}</td>
+	<td align="center">{get_linkage($v['brand'],3480,' >> ',1)} </td>
+	<td align="center">{$v['cid']}</td>
+    <td align="center">{get_linkage($v['chengse'],3487,' >> ',1)}</td>
+    <td align="center">{get_linkage($v['size'],3360,' >> ',1)}</td>
+    <td align="center">{if $v['chandi']==0}进口{else}国产{/if}</td>
+	<td align="center">
+	<a href="index.php?m=member&c=content&a=edit&catid={$info[catid]}&id={$info[id]}"><font color="red">{L('edit')}</font></a> {if $info[status]==99}<font color="#1D94C7">{L('pass')}</font>{elseif !$info[flag]}{L('verify_content')}{/if}
+  	 
+	</td>
+	</tr>
+     {/loop}{/pc}
+     {/loop}
+      {/if}
+     </tbody>
+    </table>
+
+    
+     {elseif $catid==12 }
+		<ul style="padding-top:10px">	
+   	{loop $datas $info} 
+     {if $info['catid']==12 }
+      {php $id=$info['id']}
+    {pc:get sql="SELECT * FROM v9_kucun where id=$id"  return="keywords"} 
+    {loop $keywords $k=>$v}
+     <li style="float:left; width:100px; height:100px"> <a href="{$v[url]}" target="_blank" title="{$v['title']}"><img src="{IMG_PATH}lungu/kcico.jpg" /><br />
+      {php $time=time(); $subtime=$time-$v[updatetime]}
+    {if $subtime<=604800}<img src="{IMG_PATH}new.gif" /><br />{/if}
+     {$v['title']}</a><br />
+     
+    <a href="index.php?m=member&c=content&a=edit&catid={$info[catid]}&id={$info[id]}"><font color="red">{L('edit')}</font></a> {if $info[status]==99}<font color="#1D94C7">{L('pass')}</font>{elseif !$info[flag]}{L('verify_content')}{/if}
+     </li>
+	
+	
+	{/loop}{/pc}
+  	  {/if}
+
+     {/loop}
+     </ul>
+  
+   <div  style="height:10px; clear:both"></div>
+   
+    {/if}
+
+ <div id="pages"> {$pages}</div>
+
+			</div>
+			<span class="o1"></span><span class="o2"></span><span class="o3"></span><span class="o4"></span>
+		</div>
+	</div>
+</div>
+
+<div class="clear"></div>
+<script type="text/javascript">
+function MM_jumpMenu(targ,selObj,restore){ //v3.0
+  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+  if (restore) selObj.selectedIndex=0;
+}
+</script>
+<script language="JavaScript">
+<!--
+	function c_c(catid) {
+		location.href='index.php?m=member&c=content&a=published&siteid={$siteid}&catid='+catid;
+	}
+//-->
+</script>
+{template 'member', 'footer'}

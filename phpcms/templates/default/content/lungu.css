@@ -1,0 +1,70 @@
+@charset "utf-8";
+/* CSS Document */
+
+.jdt{ width:375px; float:left; padding-top:10px;}
+.qqq{ width:302px;  float:left; background:url(../images/lungu/qqq.jpg) no-repeat #FFF;  margin-left:10px; margin-top:20px; }
+.qqq1{border-left:1px solid #dad8d9;border-right:1px solid #dad8d9;border-bottom:1px solid #dad8d9; margin-top:60px; padding-top:40px; height:125px; padding-left:10px}
+.qqq1 ul li{ width:135px; float:left;}
+.search{ background:url(../images/lungu/searchbg.jpg) no-repeat; float:left; width:285px; height:250px; }
+
+.login1{ background:url( ../images/lungu/loginbg.jpg) no-repeat; width:283px; margin-left:10px; margin-top:2px; height:203px;}
+.indexlogin{ padding-top:60px; padding-left:10px;  }
+.indexlogin label{  font-family:"微软雅黑"; font-size:14px;  line-height:40px }
+
+.jsq{ width:690px; height:363px; overflow:hidden; float:left;}
+
+.ltjsq{ width:450px; height:305px; float:left; display:inline; overflow:hidden}
+.anouce{ background:url( ../images/lungu/anoubg.jpg) no-repeat; width:252px; border:1px solid #e5ebeb; height:134px; line-height:24px; color:#FFF; font-weight:bold;  margin-top:10px; padding-left:25px;}
+
+.anc ul li{ height:24px; border-bottom:1px dotted #c0c0c0; font-weight:normal; background:url( ../images/lungu/dot0.jpg) left center no-repeat; padding-left:-10px}
+.submit1{padding-left:3px; float:left; margin-left:12px; margin-top:8px}
+.submit1,.submit1 input{ background: url(../images/lungu/but.jpg) no-repeat; height:29px;width:auto;_width:0;overflow:visible !ie}
+.submit1 input{background-position: right top; border:none; padding:0 7px 0 7px; font-size:12px; color:#FFF}
+.qq{ float:left; margin-left:5px}
+
+.tab1{ width:225px; float:right; height:305px }
+#lib_Tab1{width:225px;margin:0px;padding:0px;}
+/*选项卡2*/
+#lib_Tab2{width:690px;margin:0px;padding:0px; }
+/*菜单class*/
+.lib_tabborder{border:1px solid #dadada;}
+.lib_Menubox {height:32px;line-height:32px;position:relative;}
+.lib_Menubox ul{margin:0px;padding:0px;list-style:none; position:absolute; top:0px; left:0;  height:32px;text-align:center;}
+.lib_Menubox li{float:left;display:block;cursor:pointer;width:73px;color:#444;border-right:1px solid #dadada;height:32px;line-height:32px; }
+.lib_Menubox li.hover{padding:0px;background:#fff;width:74px; color:#006380;height:33px;line-height:33px; font-weight:bold; background:#f9f9f9}
+.lib_Contentbox{clear:both;margin-top:0px; border-top:none;height:260px; text-align:center;padding-top:8px; background:#f9f9f9 }
+
+
+.lib_Contentbox2{clear:both;margin-top:0px; border-top:none;height:130px; text-align:center;padding-top:8px; background:#f9f9f9 }
+.lib_Menubox3 {height:32px;line-height:32px;position:relative;}
+.lib_Menubox3 ul{margin:0px;padding:0px;list-style:none; position:absolute; top:0px; left:0;  height:32px;text-align:center;}
+.lib_Menubox3 li{float:left;display:block;cursor:pointer;width:115px;color:#444;border-right:1px solid #dadada;height:32px;line-height:32px; }
+.lib_Menubox3 li.hover{padding:0px;background:#fff;width:116px; color:#d60008;height:33px;line-height:33px; font-weight:bold; background:#f9f9f9}
+
+.pics{ clear:both; padding-top:10px}
+
+.ads{ width:276px; background:#eef5f5; border:1px solid #c3ccce;  padding-top:0px }
+.ads p{color:#FF5500; font-weight:bold; padding-left:10px; line-height:32px; background:#eef5f5; width:276px;}
+
+.lgyxb{width:278px; background:url(../images/lungu/abbg.jpg) repeat-x; border:1px solid #e8eae9; margin-top:10px;  padding-top:0px; height:350px}
+.lgyxb p{color:#FFF; font-weight:bold; padding-left:10px; line-height:32px;  }
+.search1 { line-height:35px; padding-left:20px  }
+.xuanx{ margin-right:20px;}
+.listpic{ width:960px; margin:0 auto; padding-top:10px }
+.listpic ul li{ width:184px; float:left;}
+.nav0{ float:left; width:840px; margin:0px; padding:0px }
+.nav0 li { float:left; width:110px; height:90px; display:inline}
+.nav0 li a{ float:left; width:110px; height:90px}
+
+.table{ border:1px solid #666}
+
+.xpss{ float:left; width:670px; padding-left:17px; padding-top:15px}
+.xpss li{ width:95px; float:left;}
+.xpss li img{ border:1px solid #999; padding:1px}
+
+.kc img{width:220px}
+
+.yqlink li{ float:left; width:64px; padding-right:15px; }
+
+.kclist { width:960px; margin:0 auto; padding-top:10px }
+.kclist ul li{ width:96px; float:left; text-align:center; line-height:30px; height:100px}

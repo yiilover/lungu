@@ -1,0 +1,101 @@
+{template "content","header"}
+<div class="header">
+<div class="main">
+	<div class="logo"><a href="{siteurl($siteid)}/"><img src="{IMG_PATH}lungu/logo.gif" width="120" /></a></div>
+    {php $catid=$_GET[catid];}
+    <div  class="banner3"> <ul class="nav0"><li><a href="{APP_PATH}"></a> </li><li><a href="{APP_PATH}index.php?m=content&c=index&a=lists&catid=9"></a></li><li><a href="{APP_PATH}index.php?m=content&c=index&a=lists&catid=10"></a></li><li><a href="{APP_PATH}index.php?m=content&c=index&a=lists&catid=11"></a> </li><li><a href="{APP_PATH}index.php?m=content&c=index&a=lists&catid=12"></a> </li><li><a target="_blank" href="{APP_PATH}bbs"></a> </li>
+    
+    </ul></div>
+    <div class="bk3"></div>
+    	 <a name="shuju">&nbsp;</a>
+</div>
+
+</div>
+<!--main-->
+<div class="main" style="background:#FFF">
+		<div class="crumbs"><a href="{siteurl($siteid)}">首页</a><span> > </span>{catpos($catid)} 搜索列表</div>
+        
+        <div class="search1">
+         <form action="" method="post">
+         <select name="type">
+          <option value="num">产品编号</option><option value="qq">帐号/QQ</option>
+        </select>
+          <input type="text" name="q" value="{$_POST['q']}" size="30"/>
+        
+       <input type="submit" value="搜索" /><br />
+        <span class="xuanx">汽车品牌：{menu_linkage(3480,'L_3480')}  </span><span class="xuanx"> 地区：{menu_linkage(1,'L_1')}</span> <span class="xuanx"> 成色：{menu_linkage(3487,'L_3487')}</span> <br />
+       <span class="xuanx">尺寸：{menu_linkage(3360,'L_3360')}</span>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="xuanx">配件编号：<input type="text" name="cid" value="" size="13" /></span> 
+       <input type="radio" name="chandi" value="1" checked="checked" /> 国产
+<input type="radio" name="chandi" value="0" /> 进口
+       
+       </form>
+         </div>
+         <div class="listpic" style="min-height:400px">
+         
+    	 <div class="order"> <form name="form1" id="form1" action="" method="post" > <input type="text" name="q" value="{$_POST['q']}" size="30"/> <input type="submit" value="search" />  </form> <a href="index.php?m=content&c=index&a=lists&catid=11&order=favourist" ><img src="{IMG_PATH}lungu/scrq.jpg"  /> </a><a href="index.php?m=content&c=index&a=lists&catid=11&order=new" ><img src="{IMG_PATH}lungu/new.jpg" /></a><a href="index.php?m=content&c=index&a=lists&catid=11" >  <img src="{IMG_PATH}lungu/default.jpg" /></a> </div>
+         <div class="listpic" style="clear:both; min-height:400px"> <a name="pic">&nbsp;</a>
+        
+         {php $order=$_GET[order];}
+        
+         {if $order=='favourist'}
+        
+           {pc:content action="hits" catid="$catid" num="10" order="views DESC" cache="3600" page="$page"}
+        {else}
+    	{pc:content action="lists" where="$where" catid="$catid" num="25" order="id desc" page="$page"}
+        
+      {/if}
+          <ul class="f14 listpic">
+{loop $data $r}
+	<li>
+   <div style="height:175px">
+    <a class="tooltips" href="{$r[url]}" target="_blank"{title_style($r[style])}  ><img src="{$r[thumb]}" width="175"  />
+    
+    <span>
+【品牌车型】{get_linkage($v['brand'],3480,' >> ',1)}<br />
+【配件编号】{$v['cid']}<br />
+【尺寸】{get_linkage($r['size'],3360,' >> ',1)}<br />
+【产地】{if $r['chandi']==0}进口{else}国产{/if}<br />
+【发布人】{$r['username']}<br />
+【发布时间】{date('Y年m月d日 H:i:s',$r[inputtime])}<br />
+</span></a></div>
+    <a href="{$r[url]}" target="_blank">{str_cut($r[title], 10)}</a>
+    {php $username=$r['username'];}
+{pc:get sql="SELECT userid FROM v9_member where username='$username' " num="1" return="data1"}
+   {loop $data1 $t}
+  {php $userid=$t[userid];}
+  {pc:get sql="SELECT * FROM v9_member_detail where userid='$userid' " num="1" return="data2"}
+   {loop $data2 $v}
+   {if $v[qq]!=0}
+  <a href="http://wpa.qq.com/msgrd?v=3&uin={$v[qq]}&site=qq&menu=yes" target="_blank">
+  <img border="0" src="http://wpa.qq.com/pa?p=2:{$v[qq]}:51" alt="在线联系" title="在线联系"/> 
+  </a>
+  {/if}
+  {/loop}
+  {/pc}
+ 
+  {/loop}
+  {/pc}
+    </li>
+	
+{/loop}
+        </ul> <a name="bottom">&nbsp;</a>
+        <div id="pages" class="text-c">{$pages}</div>
+{/pc}
+ 
+</div>
+</div>
+<div style="clear:both"></div>
+{template "content","footer"}
+<div class="go">
+	<a title="" class="top" href="#shuju">数据栏</a>
+	<a title="" class="feedback" href="#pic" >图片栏</a>
+	<a title="" class="bottom" href="#bottom">底翻页</a>
+</div>
+<style type="text/css">
+
+.go{width:47px;height:424px;position:fixed;_position:absolute;_top:expression(eval(document.documentElement.scrollTop+document.documentElement.clientHeight-this.offsetHeight-(parseInt(this.currentStyle.marginTop,10)||200)-(parseInt(this.currentStyle.marginBottom,10)||0)));left:30px;top:25%;}
+.go a{background:url({IMG_PATH}/a.gif) no-repeat;display:block;width:16px;border:0;overflow:hidden;float:left}
+.go .top{background-position:0 0px;height:36px; padding:50px 12px;}
+.go .feedback{background-position:0 -136px;height:39px;padding:45px 12px; }
+.go .bottom{background-position:0 -265px;height:61px;padding:50px 12px;}
+</style> 

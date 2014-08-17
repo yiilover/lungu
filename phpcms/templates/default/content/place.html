@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title> {$username}会员空间</title>
+<link href="{APP_PATH}statics/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="{APP_PATH}statics/css/member.css" rel="stylesheet" type="text/css" />
+<link href="{APP_PATH}statics/css/table_form.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{APP_PATH}statics/js/jquery.min.js"></script>
+<script type="text/javascript" src="{APP_PATH}statics/js/member_common.js"></script>
+<style>
+.content2{ padding-top:20px}
+</style>
+</head>
+<body>
+<div id="header">
+	<div class="logo"><script language="javascript" src="{APP_PATH}index.php?m=poster&c=index&a=show_poster&id=24"></script> <h3 >会员空间</h3>   </div>
+    
+<div style=" padding-left:80px"><script language="javascript" src="{APP_PATH}caches/poster_js/25.js"></script></div>
+ 
+			    
+    <div class="link">
+	<a target="_blank" href="{APP_PATH}">首页</a> </div>
+	
+</div><div id="memberArea">
+<div class="col-left col-1 left-memu">
+        	<h5 class="title"><img src="{APP_PATH}statics/images/icon/m_1.png" width="15" height="15" /> 发布产品</h5>
+            <ul>
+       	    <li ><a href="index.php?m=content&c=index&a=place&username={$username}"><img src="{APP_PATH}statics/images/icon/m_3.png" width="14" height="15" /> 改装款</a></li>
+            <li ><a href="index.php?m=content&c=index&a=place&username={$username}&catid=10"><img src="{APP_PATH}statics/images/icon/m_3.png" width="14" height="16" /> 原车款</a></li>
+            <li ><a href="index.php?m=content&c=index&a=place&username={$username}&catid=11"><img src="{APP_PATH}statics/images/icon/m_3.png" width="14" height="16" /> 拆车件</a></li>
+             <li ><a href="index.php?m=content&c=index&a=place&username={$username}&catid=12"><img src="{APP_PATH}statics/images/icon/m_3.png" width="14" height="16" /> 库存表</a></li>
+            </ul>
+           
+           
+     
+</div>    <div class="col-auto">
+
+ 
+
+					    	
+			    	<div class="col-auto">
+        	<div class="col-1 member-info">
+            	<div class="content">
+                
+                {pc:get sql="select * from v9_member where username='$username'" num="10" return="data1" page="$page"}
+   {loop $data1 $t}
+                    <div class="col-left himg">
+					<img src="{APP_PATH}phpsso_server/uploadfile/avatar/$t['userid']}/$t['userid']}/$t['userid']}/90x90.jpg" width="60" height="60" onerror="this.src='{$phpsso_api_url}/statics/images/member/nophoto.gif'">
+                    <a href="{APP_PATH}index.php?m=member&siteid=1">会员中心</a>
+					</div>
+                  <div class="col-auto">
+                   	<h5>
+					{if $t['from']}<img src="{IMG_PATH}member/logo/{$t['from']}_16_16.png">{/if}
+					<font color="{$grouplist[$t[groupid]]['usernamecolor']}">
+					{if $t['nickname']} {$t['nickname']} {else} {$t['username']}{/if}
+					</font>
+					{if $t['email']}（{$t['email']}）{/if}
+                    
+                   
+					</h5>
+                    <p class="blue">  
+					积分：<font style="color:#F00; font-size:12px;font-family:Georgia,Arial; font-weight:700">{$t[point]}</font> 
+                      </p>
+                      {php $userid=$t[userid];}
+                      
+                      {pc:get sql="SELECT * FROM v9_member_detail where userid='$userid' " num="1" return="data2"}
+   {loop $data2 $v}
+   {if $v[qq]!=0}
+
+                    <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin={$v['qq']}&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:{$v['qq']}:51" alt="在线联系" title="在线联系"/></a>{/if}
+                    {/loop}
+                    {/pc}
+                    </div>
+           	  </div>
+{/loop}{/pc}
+            	<span class="o1"></span><span class="o2"></span><span class="o3"></span><span class="o4"></span>
+            </div>
+            <div class="bk10"></div>
+
+  <div class="bk10"></div>
+            <div class="col-1 ">
+            {php $catid=$_GET[catid]}
+            {if $catid==''}
+            	<h5 class="title" style="float:left;width:100px;height:32px">改装款 </h5> <div style="float:right;width:700px; padding-top:6px;height:35px"><form method="get" action="{APP_PATH}index.php?m=content&c=index&a=place&username=$username&catid=$catid" id="myform" name="myform">尺寸：{menu_linkage(3360,'L_3360',$_POST['info']['L_3360'])} 孔数：{menu_linkage(3433,'L_3433',$_POST['info']['L_3433'])} <input type="submit"  value="search"/></form></div>
+            	<div class="content2">
+					        	
+   <ul>{pc:get sql="select * from v9_gaizhuang where username='$username' and status=99 ORDER BY id DESC " num="21" cache="3600"  page="$page" return="data"}
+   {elseif $catid==10}
+   <h5 class="title" style="float:left;width:100px; height:32px">原车款</h5><div style="float:right;width:700px; padding-top:6px;height:35px"><form method="get" action="{APP_PATH}index.php?m=content&c=index&a=place&username=$username&catid=$catid" id="myform" name="myform">汽车品牌：{menu_linkage(3480,'L_3480')}  配件编号：<input type="text" name="cid" value="" size="13" />  <input type="submit"  value="search"/></form></div>
+            	<div class="content2">
+					        	
+   <ul>{pc:get sql="select * from v9_yuanche where username='$username' and status=99 ORDER BY id DESC " num="21" cache="3600"  page="$page" return="data"}
+    {elseif $catid==11}
+   <h5 class="title" style="float:left;width:100px;height:32px">拆车件 </h5><div style="float:right;width:700px; padding-top:6px;height:35px"><form method="get" action="{APP_PATH}index.php?m=content&c=index&a=place&username=$username&catid=$catid" id="myform" name="myform">汽车品牌：{menu_linkage(3480,'L_3480')}  尺寸：{menu_linkage(3360,'L_3360')}<input type="submit"  value="search"/></form></div>  
+            	<div class="content2">
+					        	
+   <ul>{pc:get sql="select * from v9_chaiche where username='$username' and status=99 ORDER BY id DESC " num="21" cache="3600"  page="$page" return="data"}
+   
+    {elseif $catid==12}
+   <h5 class="title" >库存表</h5>
+            	<div class="content2">
+					        	
+   <ul>{pc:get sql="select * from v9_kucun where username='$username' and status=99 ORDER BY id DESC " num="21" cache="3600"  page="$page" return="data"}
+   
+   {/if}
+        	 {loop $data $r}
+       <li style=" width:105px; float:left; height:160px; padding-left:10px  ">
+      
+       <img src="{$r[thumb]}" width="100" style="padding:1px; border:1px solid #CCC"  />
+      
+       
+       <br />
+        {php $time=time(); $subtime=$time-$r[updatetime]}
+    {if $subtime<=604800}<img src="{IMG_PATH}new.gif" /><br />{/if}
+   <a href="{$r[url]}" target="_self" style="line-height:25px; " >{$r[title]}</a>
+</li>  
+               
+   {/loop}  
+             {/pc}  
+   
+   </ul>
+				<div style="clear:both"></div>
+            	</div>
+            	
+            </div>
+            
+          
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+<script type="text/javascript" src="{APP_PATH}statics/js/cookie.js"></script>
+<script language="JavaScript">
+<!--
+$(document).ready(function() {
+	var announcement = getcookie('announcement_1_2');
+	if(announcement==null || announcement=='') {
+		$("#announcement").fadeIn("slow");
+	}
+});
+//-->
+</script>
+<div id="footer">
+<a href="{APP_PATH}html/about/aboutus/" target="_blank">关于我们</a> |  
+<a href="{APP_PATH}html/about/contactus/" target="_blank">联系方式</a> |  
+<a href="{APP_PATH}index.php?m=content&c=index&a=lists&catid=4" target="_blank">版权声明</a> |  
+<a href="{APP_PATH}html/about/xsrm/" target="_blank">新手必读</a> |  
+<a href="{APP_PATH}html/about/rhsctp/" target="_blank">如何上传表格</a> |  
+<a href="{APP_PATH}html/about/vip/" target="_blank">如何获得升级</a> |  
+<a href="{APP_PATH}html/about/pay/" target="_blank">银行汇款</a> |  
+<a href="{APP_PATH}index.php?m=link" target="_blank">友情链接</a>
+
+<p class="cp">&copy; 2014 <img src="{APP_PATH}statics/images/copyright.gif"/>
+</p>
+</div>
+</body>
+</html>

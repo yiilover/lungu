@@ -1,0 +1,104 @@
+{template "content","header"}
+<div class="header">
+<div class="main">
+	<div class="logo"><a href="{siteurl($siteid)}/"><img src="{IMG_PATH}lungu/logo.gif" width="120" /></a></div>
+    <div  class="banner1"> <ul class="nav0"><li><a href="{APP_PATH}"></a> </li><li><a href="{APP_PATH}index.php?m=content&c=index&a=lists&catid=9"></a></li><li><a href="{APP_PATH}index.php?m=content&c=index&a=lists&catid=10"></a></li><li><a href="{APP_PATH}index.php?m=content&c=index&a=lists&catid=11"></a> </li><li><a href="{APP_PATH}index.php?m=content&c=index&a=lists&catid=12"></a> </li><li><a target="_blank" href="{APP_PATH}bbs"></a> </li>
+    
+    </ul></div>
+    <div class="bk3"></div>
+    	
+</div>
+
+</div>
+<!--main-->
+<div class="main" style="background:#FFF">
+	<a name="shuju">&nbsp;</a>
+    	<div class="crumbs"><a href="{siteurl($siteid)}">首页</a><span> > </span>{catpos($catid)} 搜索列表</div>
+        
+        <div class="search1">
+        <form action="" method="post">
+        <select name="type">
+          <option value="num">产品编号</option><option value="qq">帐号/QQ</option>
+        </select>
+       <input type="text" name="q" value="{$_POST['q']}" size="30"/>
+       <input type="submit" value="搜索" /><br />
+        <span class="xuanx">尺寸：{menu_linkage(3360,'L_3360',$_POST['info']['L_3360'])} </span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="xuanx">输入轴径：<input type="text" name="zhoujing" value="{if !empty($_POST['zhoujing'])}{$_POST['zhoujing']}{else}请输入任意数字{/if}" size="18" /> </span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="xuanx"> 条幅：{menu_linkage(3425,'L_3425')}</span> <br />
+       <span class="xuanx">孔数：{menu_linkage(3433,'L_3433',$_POST['info']['L_3433'])}</span>   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="xuanx">边缘：{menu_linkage(3440,'L_3440')} </span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="xuanx">颜色：{menu_linkage(3451,'L_3451',$_POST['info']['L_3451'])}</span> <span class="xuanx"><br />多色彩：{menu_linkage(4364,'L_4364',$_POST['info']['L_4364'])}</span>
+        &nbsp;&nbsp;<span class="xuanx">偏距： <input type="text" name="min" value="{$_POST['min']}" size="10" />至<input name="max" value="{$_POST['max']}" type="text" size="10" /></span>   <span class="xuanx">地区：{menu_linkage(1,'L_1',$_POST['info']['L_1'])}</span> <br /><span class="xuanx">工艺：{menu_linkage(3475,'L_3475',$_POST['info']['L_3475'])}</span><input type="radio" name="chandi" value="1" checked="checked" /> 国产
+<input type="radio" name="chandi" value="0" /> 进口
+       </form>
+         </div>
+         <div class="order"> <form name="form1" id="form1" action="" method="post" > <input type="text" name="q" value="{$_POST['q']}" size="30"/> <input type="submit" value="search" />  </form> <a href="index.php?m=content&c=index&a=lists&catid=9&order=favourist" ><img src="{IMG_PATH}lungu/scrq.jpg"  /> </a><a href="index.php?m=content&c=index&a=lists&catid=9&order=new" ><img src="{IMG_PATH}lungu/new.jpg" /></a><a href="index.php?m=content&c=index&a=lists&catid=9" >  <img src="{IMG_PATH}lungu/default.jpg" /></a> </div>
+         <a name="pic">&nbsp;</a>
+         <div class="listpic" style="clear:both; min-height:400px">
+        
+         {php $order=$_GET[order];}
+        
+         {if $order=='favourist'}
+        
+           {pc:content action="hits" catid="$catid" num="10" order="views DESC" cache="3600" page="$page"}
+        {else}
+    	{pc:content action="lists" where="$where" catid="$catid" num="25" order="id desc" page="$page"}
+        
+      {/if}
+        <ul class="f14 listpic">
+{loop $data $r}
+	<li>
+    <div style="height:205px">
+    <a  href="{$r[url]}" class="tooltips" target="_blank" ><img src="{$r[thumb]}" width="175"   />
+    
+    <span>
+【工艺】{get_linkage($r['gongyi'],3475,' >> ',1)}<br />
+【颜色】{get_linkage($r['color'],3451,' >> ',1)}<br />
+【尺寸】{get_linkage($r['size'],3360,' >> ',1)}<br />
+【偏距】{$r['pianju']}<br />
+【孔距】{get_linkage($r['kongshu'],3433,' >> ',0)}<br />
+【产品编号】{$r['num']}<br />
+【产地】{if $r['chandi']==0}进口{else}国产{/if}<br />
+【发布人】{$r['username']}<br />
+【发布时间】{date('Y年m月d日 H:i:s',$r[inputtime])}<br />
+</span></a></div>
+    <a href="{$r[url]}" target="_blank">{str_cut($r[title], 10)}</a>
+    
+{php $username=$r['username'];}
+{pc:get sql="SELECT userid FROM v9_member where username='$username' " num="1" return="data1"}
+   {loop $data1 $t}
+  {php $userid=$t[userid];}
+  {pc:get sql="SELECT * FROM v9_member_detail where userid='$userid' " num="1" return="data2"}
+   {loop $data2 $v}
+   {if $v[qq]!=0}
+  <a href="http://wpa.qq.com/msgrd?v=3&uin={$v[qq]}&site=qq&menu=yes" target="_blank">
+  <img border="0" src="http://wpa.qq.com/pa?p=2:{$v[qq]}:51" alt="在线联系" title="在线联系"/> 
+  </a>
+  {/if}
+  {/loop}
+  {/pc}
+ 
+  {/loop}
+  {/pc}
+    </li>
+	
+{/loop}
+        </ul>
+        <a name="bottom">&nbsp;</a>
+        <div id="pages" class="text-c">{$pages}</div>
+{/pc}
+ 
+   
+</div>
+</div>
+<div style="clear:both"></div>
+{template "content","footer"}
+<div class="go">
+	<a title="" class="top" href="#shuju">数据栏</a>
+	<a title="" class="feedback" href="#pic" >图片栏</a>
+	<a title="" class="bottom" href="#bottom">底翻页</a>
+</div>
+<style type="text/css">
+
+.go{width:47px;height:424px;position:fixed;_position:absolute;_top:expression(eval(document.documentElement.scrollTop+document.documentElement.clientHeight-this.offsetHeight-(parseInt(this.currentStyle.marginTop,10)||200)-(parseInt(this.currentStyle.marginBottom,10)||0)));left:30px;top:25%;}
+.go a{background:url({IMG_PATH}/a.gif) no-repeat;display:block;width:16px;border:0;overflow:hidden;float:left}
+.go .top{background-position:0 0px;height:36px; padding:50px 12px;}
+.go .feedback{background-position:0 -136px;height:39px;padding:45px 12px; }
+.go .bottom{background-position:0 -265px;height:61px;padding:50px 12px;}
+</style> 

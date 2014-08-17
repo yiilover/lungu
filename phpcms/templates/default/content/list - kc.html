@@ -1,0 +1,81 @@
+{template "content","header"}
+
+{if $_userid==''}
+<script type="text/javascript"> 
+
+alert("请先登录！！！") 
+window.location.href='{APP_PATH}';
+
+</script> 
+{else}
+
+{pc:get sql="select * from v9_member where userid='$_userid'"  }
+{loop $data $k $v}
+{if $v['vip']=='0'}
+<script type="text/javascript"> 
+
+alert("该页面只有vip用户可以查看！！") 
+window.location.href='{APP_PATH}';
+
+</script> 
+{/if}
+{/loop}
+{/pc}
+{/if}
+<div class="header">
+<div class="main">
+	<div class="logo"><a href="{siteurl($siteid)}/"><img src="{IMG_PATH}lungu/logo.gif" width="120" /></a></div>
+    {php $catid=$_GET[catid];}
+    <div  class="banner5"> <ul class="nav0"><li><a href="{APP_PATH}"></a> </li><li><a href="{APP_PATH}index.php?m=content&c=index&a=lists&catid=9"></a></li><li><a href="{APP_PATH}index.php?m=content&c=index&a=lists&catid=10"></a></li><li><a href="{APP_PATH}index.php?m=content&c=index&a=lists&catid=11"></a> </li><li><a href="{APP_PATH}index.php?m=content&c=index&a=lists&catid=12"></a> </li><li><a href="{APP_PATH}bbs"></a> </li>
+    
+    </ul></div>
+    <div class="bk3"></div>
+    	
+</div>
+
+</div>
+<!--main--> <a name="shuju">&nbsp;</a>
+<div class="main" style="padding-left:20px">
+<div class="crumbs main"><a href="{siteurl($siteid)}">首页</a><span> > </span>{catpos($catid)} 列表</div>
+  <form action="" method="post">
+          关键词
+          <input type="text" name="q" value="{$_POST['q']}" size="30"/>
+        地区：{menu_linkage(1,'L_1',$_POST['info']['L_1'])}
+       <input type="submit" value="搜索" />
+       
+       </form>
+         </div>
+          <a name="pic">&nbsp;</a>
+         <div class="listpic"  style="min-height:400px">
+         
+         
+    	 <div class="order"> <a href="index.php?m=content&c=index&a=lists&catid=12&order=favourist" ><img src="{IMG_PATH}lungu/scrq.jpg"  /> </a><a href="index.php?m=content&c=index&a=lists&catid=12&order=new" ><img src="{IMG_PATH}lungu/new.jpg" /></a><a href="index.php?m=content&c=index&a=lists&catid=12" >  <img src="{IMG_PATH}lungu/default.jpg" /></a> </div>
+<div class="main" style="background:#FFF; min-height:400px ">
+	
+    	
+         <div class=" kclist" style="clear:both">
+    	 {php $order=$_GET[order];}
+        
+         {if $order=='favourist'}
+        
+           {pc:content action="hits" catid="$catid" num="10" order="views DESC" cache="3600" page="$page"}
+        {else}
+    	{pc:content action="lists" where="$where" catid="$catid" num="25" order="id desc" page="$page"}
+        
+      {/if}
+        <ul class="f12 kclist">
+{loop $data $r}
+	<li>
+    <a href="{$r[url]}" target="_blank"{title_style($r[style])}><img src="{$r[thumb]}" width="49" /></a><br />
+    {php $time=time(); $subtime=$time-$r[updatetime]}
+    {if $subtime<=604800}<img src="{IMG_PATH}new.gif" /><br />{/if}
+    <a href="{$r[url]}" target="_blank"{title_style($r[style])} style="height:45px">{$r[title]}</a></li>
+	
+{/loop}
+        </ul> <a name="bottom">&nbsp;</a>
+        <div id="pages" class="text-c">{$pages}</div>
+{/pc}
+  </div>
+   </div>
+</div>
+{template "content","footer"}

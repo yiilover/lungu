@@ -1,0 +1,56 @@
+{template 'member', 'header'}
+<link href="{CSS_PATH}dialog.css" rel="stylesheet" type="text/css" />
+<script language="javascript" type="text/javascript" src="{JS_PATH}dialog.js"></script>
+<script language="javascript" type="text/javascript" src="{JS_PATH}content_addtop.js"></script>
+<div id="memberArea">
+	{template 'member', 'left'}
+	<div class="col-auto">
+		<div class="col-1 ">
+			<h5 class="title">{L('favorite_list')}</h5>
+			<div class="content">
+				
+			<form method="get" action="{APP_PATH}index.php?m=member&c=index&a=favorite&t=2" id="myform" name="myform">
+				<table width="100%" cellspacing="0" class="table_form">
+                <tr> <td colspan="3" style="padding:20px"> <input type="hidden" name="m" value="member" /><input type="hidden" name="c" value="index" /><input type="hidden" name="a" value="favorite" /><input type="hidden" name="t" value="2" />
+       <input type="text" name="q" size="30" /> 
+                
+                 <input type="submit"  value="search"/></td></tr>
+					<tr>
+						<td>{L('title')}</td>
+						<td>{L('adddate')}</td>
+						<td>{L('operation')}</td>
+					</tr>
+                    {php $q=$_GET[q]; $userid=$memberinfo['userid']}
+                    {if $q==''}
+					{loop $favoritelist $k $v}
+                    <tr>
+						<td><a href="{$v['url']}" target="_blank">{$v['title']}</a> {php $time=time(); $subtime=$time-$v['adddate']}
+    {if $subtime<=604800}<font color="#FF0000">new</font>{/if}</td>
+						<td>{format::date($v['adddate'], 1)}</td>
+						<td><a href="index.php?m=member&c=index&a=favorite&id={$v['id']}">{L('delete')}</a></td>
+					</tr>
+					{/loop}
+                    {else}
+                    {pc:get sql="select * from v9_favorite where title like '%$q%' and userid ='$userid'" page="$page" return="data2"}
+                     {loop $data2 $v}
+                     <tr>
+						<td><a href="{$v['url']}" target="_blank">{$v['title']} </a> {php $time=time(); $subtime=$time-$v['adddate']}
+    {if $subtime<=604800}<font color="#FF0000">new</font>{/if}</td>
+						<td>{format::date($v['adddate'], 1)}</td>
+						<td><a href="index.php?m=member&c=index&a=favorite&id={$v['id']}">{L('delete')}</a></td>
+					</tr>
+					{/loop}
+                    {/pc}
+                     {/if}
+					
+				</table>
+			</form>
+			
+			</div>
+			<div id="pages">{$pages}</div>
+			<span class="o1"></span><span class="o2"></span><span class="o3"></span><span class="o4"></span>
+		</div>
+	</div>
+</div>
+<div class="clear"></div>
+{template 'member', 'footer'}
