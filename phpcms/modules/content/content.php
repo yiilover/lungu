@@ -135,6 +135,7 @@ class content extends admin {
 				} else {
 					$_POST['info']['status'] = 99;
 				}
+                $_POST['info']['content'] = $this->get_content($_POST['info']['content']);
 				$this->db->add_content($_POST['info']);
 				if(isset($_POST['dosubmit'])) {
 					showmessage(L('add_success').L('2s_close'),'blank','','','function set_time() {$("#secondid").html(1);}setTimeout("set_time()", 500);setTimeout("window.close()", 1200);');
@@ -217,6 +218,7 @@ class content extends admin {
 				if(trim($_POST['info']['title'])=='') showmessage(L('title_is_empty'));
 				$modelid = $this->categorys[$catid]['modelid'];
 				$this->db->set_model($modelid);
+                $_POST['info']['content'] = $this->get_content($_POST['info']['content']);
 				$this->db->edit_content($_POST['info'],$id);
 				if(isset($_POST['dosubmit'])) {
 					showmessage(L('update_success').L('2s_close'),'blank','','','function set_time() {$("#secondid").html(1);}setTimeout("set_time()", 500);setTimeout("window.close()", 1200);');
@@ -251,6 +253,15 @@ class content extends admin {
 			}
 			header("Cache-control: private");
 	}
+
+    /*
+     * 表格处理
+     * */
+    public function get_content($content){
+        $content = str_replace("0.5pt","1pt",$content);
+        $content = preg_replace('/<table([\s\S]*?)>/','<table$1 border="1pt">',$content);
+        return $content;
+    }
 	/**
 	 * 删除
 	 */
