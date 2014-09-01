@@ -55,6 +55,7 @@ class content extends foreground {
 			$fields = array_merge($fields_sys,$fields_attr);
 			$fields = array_keys($fields);
 			$info = array();
+			$_POST['info']['content'] = $this->get_content($_POST['info']['content']);
 			foreach($_POST['info'] as $_k=>$_v) {
 				if(in_array($_k, $fields)) $info[$_k] = trim_script($_v);
 			}
@@ -221,6 +222,7 @@ class content extends foreground {
 					$_POST['info']['status'] = 99;
 				}
 				//echo $_POST['info']['status'];exit;
+				$_POST['info']['content'] = $this->get_content($_POST['info']['content']);
 				$this->content_db->edit_content($_POST['info'],$id);
 				$forward = $_POST['forward'];
 				showmessage(L('update_success'),$forward);
@@ -716,5 +718,14 @@ class content extends foreground {
 			include template('member', 'upload_video');
 		}
 	}
+	
+	/*
+     * 表格处理
+     * */
+    public function get_content($content){
+        $content = str_replace("0.5pt","1pt",$content);
+        $content = preg_replace('/<table([\s\S]*?)>/','<table$1 border="1pt">',$content);
+        return $content;
+    }
 }
 ?>
